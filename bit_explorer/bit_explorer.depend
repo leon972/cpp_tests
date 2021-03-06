@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1187886175 source:c:\projects\cpp\bit_explorer\main.cpp
+	<iostream>
+	<ctype.h>
+	<string.h>
+	<math.h>
+	<iostream>
+

@@ -1,0 +1,10 @@
+# depslib dependency file v1.0
+1191159300 source:c:\projects\cpp\stack4\stack4.cpp
+	"stack4.h"
+
+1192650569 c:\projects\cpp\stack4\stack4.h
+
+1191527872 source:c:\projects\cpp\stack4\main.cpp
+	<iostream>
+	"stack4.h"
+

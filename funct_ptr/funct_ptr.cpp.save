@@ -1,0 +1,84 @@
+/*********************************
+Puntatori a funzione
+Code by Leonardo Berti (c) 2010
+**********************************/
+
+#include <iostream>
+using namespace std;
+
+/**
+calcola il quadrato
+*/
+int fn_square(int x)
+{
+    return x*x;
+}
+
+int fn_cube(int x)
+{
+    return x*x*x;
+}
+
+void display(const char* text)
+{
+    cout<<"display:"<<text<<endl;
+}
+
+/**
+Passaggio di un puntatore a funzione ad una funzione
+value=valore da usare con la funzione passata
+*/
+void use_function(int (*ptr)(int),int value)
+{
+    cout<<"il valore restituito è:"<<ptr(value)<<endl;
+}
+
+/**
+dichiarazione di un array di puntatori a funzione
+*/
+int (*fun_ptr_array[2])(int);
+
+/**
+definizione di un tipo di puntaotre afunzione
+INT_FUNCTION è un tipo di dati per le funzioni che accettano
+un int e restituiscono un int
+*/
+
+typedef int (*INT_FUNCTION)(int);
+
+
+
+int main()
+{
+
+    //fun_ptr è un puntatore a una funzione che ha come argomento un intero e restituisce un intero
+    int (*fun_ptr)(int)=fn_square;
+
+    cout<<fun_ptr(2)<<endl; //stampa 4
+
+    //assegna il puntaotore alla seconda funzione
+    fun_ptr=fn_cube;
+
+    cout<<fun_ptr(2)<<endl; //stampa 8
+
+    //puntatore a una funzione che accetta un array di caratteri costanti e rende void
+    //assegna al puntaote la funzione display
+    void (*fun_ptr2)(const char*)=display;
+
+    fun_ptr2("Hello World!");
+
+    use_function(fun_ptr,5);
+
+    //passa direttamente la funzione per nome
+    use_function(fn_square,6);
+
+    //usa il vettore di puntatori a funzione
+    fun_ptr_array[0]=fn_square;
+    fun_ptr_array[1]=fn_cube;
+
+    cout<<"*** usa l'array di puntaotir a funzione*"<<endl;
+    for (int i=0;i<2;i++) use_function(fun_ptr_array[i],6);
+
+    return 0;
+
+}

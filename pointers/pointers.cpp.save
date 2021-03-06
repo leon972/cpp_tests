@@ -1,0 +1,185 @@
+/**********************************************************************************
+ Code by Leonardo Berti (c) 2007
+ Puntatori,array e strutture
+***********************************************************************************/
+
+#include<iostream>
+#include<vector>
+
+using namespace std;
+
+//questa accetta un puntatore a caratteri on un array di char
+void prnt_array(char* ar)
+{
+    cout<<ar<<endl;
+}
+
+//questa funzione acccetta come argomento un array di interi con 5 elementi
+void prn_int_array(int ar[5])
+{
+    for (int i=0;i<5;++i)
+    {
+        cout<<ar[i]<<",";
+    }
+    cout<<endl;
+}
+
+//passaggio di un array specificando le dimensioni
+void prn_int_array2(int ar[],int asize)
+{
+    for (int i=0;i<asize;++i)
+    {
+        cout<<ar[i]<<",";
+    }
+    cout<<endl;
+}
+
+
+//questa equivale alla precendente
+void prn_int_array3(int* ar,int asize)
+{
+    for (int i=0;i<asize;++i)
+    {
+        cout<<ar[i]<<",";
+    }
+    cout<<endl;
+}
+
+//passaggio di array multi dimensionali
+void prn_mat34(int m[3][4])
+{
+    cout<<"Matrice 3x4:"<<endl;
+    for (int i=0;i<3;++i)
+    {
+        for (int j=0;j<4;++j)
+        {
+            cout<<m[i][j]<<",";
+        }
+        cout<<endl;
+    }
+}
+
+//la prima dimensione puo' non essere specificata per non serve per determinare
+//la posizione di un elemento
+//questa funzione puo' stampare qualsiasi matrice con 4 colonne
+
+void prn_mati4(int m[][4],int dim1)
+{
+    cout<<"Matrice "<<dim1<<"x4:"<<endl;
+
+    for (int i=0;i<dim1;++i)
+    {
+        for (int j=0;j<4;++j)
+        {
+            cout<<m[i][j]<<",";
+        }
+        cout<<endl;
+    }
+}
+
+//matrice con dimensioni indefinite
+void prn_matij(int* m,int dim1,int dim2)
+{
+    cout<<"Matrice "<<dim1<<"x"<<dim2<<endl;
+
+    for (int i=0;i<dim1;++i)
+    {
+        for (int j=0;j<dim2;++j)
+        {
+            cout<<m[i*dim2+j]<<","; //attenzione!
+        }
+        cout<<endl;
+    }
+}
+
+int main(void) {
+
+#ifndef NULL
+    //definizione di NULL (è costante per evitare ridefinizioni involontarie)
+    const int NULL=0;
+#endif
+
+    //PUNTATORI
+    char c='a';
+    char* p=&c; //p contiene l'indirizzo di c
+    int *pi; //puntatore a interi (pointer to int)
+    char** ppc; //puntatore a puntatore a caratteri
+    int *ap[15]; //array di 15 puntatori a interi
+    int (*fptr)(char*); //puntatore a una funzione che restituisce un int e ha com argomento un char
+    int* f(char* arg); //funzione che ha come argomento un puntatore a char e restituisce un puntatore a int
+
+    //l'operazione fondamentale con un puntatore è
+    //la dereferenziazione (indirection)
+    //cioè ottenere il valore puntato
+    cout<<"c="<<c<<" *p="<<*p<<endl;
+
+    //null pointer:puntatore nullo
+    //nessun oggetto puo' avere come indirizzo zero
+    //quindi assegnare zero a un puntatore significa che il puntatore
+    //non si riferisce a nessun oggetto
+    //puntatore nullo
+    int* ptr_i=0;
+    char* s=NULL;
+    float v[3]; //v è di tipo array float di 3 elementi
+    //stampa 12 (3*sizeof(float))
+    cout<<"sizeof(v)="<<sizeof(v)<<endl;
+    char* a[10];
+    //stampa 40 (un puntatore contiene un indirizzo di memroia, su sistemi a 32 bit è costituito da 4 byte )
+    cout<<"sizeof(a)="<<sizeof(a)<<endl;
+    //stampa 4
+    cout<<"sizeof(a[1])="<<sizeof(a[1])<<endl;
+    //la dimensione di un array deve essere una espressione costante
+    const int msize=3;
+    int msize2=9;
+    int y[msize]; //ok
+    int y2[msize2]; //ok
+
+    //array multidimensionali
+    int ad[5][6]; //ad è un array di 5 array di 6 interi
+    //stampa 120 4*5*6
+    cout<<sizeof(ad)<<endl;
+
+    //INIZIALIZZAZIONE
+    //inizializzatori di array (array initializers)
+    int v2[]={1,2,3,4}; //la dimensione viene determinata automaticamente
+    //stampa 16
+    cout<<sizeof(v2)<<endl;
+    char v3[]={'a','b','c','d'};
+    //in questo caso viene assunto atomaticamente il valore zero per gli elementi non inizializzati
+    int v4[8]={1,2,3,4};
+    //un array di caratteri inizializzato con una string literal
+    char str[]="Salve gente!";
+
+    //PASSAGGIO DI ARRAY COME ARGOMENTI
+    //viene passato l'array alla funzione
+    prnt_array(str);
+    //passaggio di un array a una funzione
+    int u[5]={1,2,3,4,5};
+    //l'array viene passato come puntatore
+    prn_int_array(u);
+    prn_int_array(v4);
+    prn_int_array2(v4,4);
+
+    //un array di 3 array di 4 int (matrice 3 righe x 4 colonne)
+    int am[3][4]={ {1,2,3,4},{11,12,13,14},{21,22,23,24}};
+
+    prn_mat34(am);
+    prn_mati4(am,3);
+    prn_matij(&am[0][0],3,4); //nota prn_matij(am,3,4); causa un errore perchè am è di tipo 
+
+    return 0;
+}
+
+//nota:questo dovrebbe generare un errore perchè viene dimensionato
+//un array con un valore non costante gcc invece lo compila (?)
+void dim_array(int asize)
+{
+    int k[asize];
+
+    for (int j=0;j<asize;j++) k[j]=0;
+
+    //oppure
+    vector<int> kv(asize);
+}
+
+

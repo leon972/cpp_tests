@@ -1,0 +1,70 @@
+/*********************************
+Functors
+passaggio di funzioni come argomenti
+Code by Leonardo Berti (c) 2010
+**********************************/
+
+#include <cmath>
+#include <iostream>
+
+using namespace std;
+
+/**
+funzione x*x
+*/
+class Square
+{
+    public:
+    //invoca la funzione
+    double operator()(const double x)
+    {
+        return x*x;
+    }
+};
+
+/**
+Ae^-x/t
+*/
+class Exp
+{
+    private:
+    double A,t;
+
+    public:
+    Exp(double A,double t)
+    {
+        this->A=A;
+        this->t=t;
+    }
+    double operator()(const double x)
+    {
+        return A*pow(M_E,x/t);
+    }
+};
+
+/**
+interfaccia funzioni di una variabile
+*/
+class IFunctionX
+{
+    virtual double operator()(double x)=0;    
+}
+
+int main(void)
+{
+    Square f;
+
+    for (int i=0;i<10;i++)
+    {
+        cout<<f(i)<<endl;
+    }
+
+    Exp f1(3,2);
+
+    for (double v=0.0;v<20;v+=1.0)
+    {
+        cout<<f1(v)<<endl;
+    }
+
+    return 0;
+}

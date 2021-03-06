@@ -1,0 +1,128 @@
+/*********************************
+Bit Hacks
+Code by Leonardo Berti (c) 2010
+**********************************/
+
+#include<iostream>
+using namespace std;
+
+/**
+Testa se num è dispari
+*/
+bool is_odd(int n) {
+    return n & 1;
+}
+
+/**
+Costruisce una maschera di n bits
+*/
+int get_mask(int nbits)
+{
+    return (1<<nbits)-1;
+}
+
+/**
+Setta un bit
+@param bit_index indice del bit da settare
+*/
+void set_bit(int &value,int bit_index)
+{
+    value |= (1<<bit_index);
+}
+
+/**
+Resetta un bit
+@param bit_index indice del bit da resettare
+*/
+void reset_bit(int &value,int bit_index)
+{
+    value &= ~(1<<bit_index);
+}
+
+/**
+Acquisisce un bit
+@param bit_index indice del bit da acquisire
+0=bit meno significativo
+*/
+int get_bit(int value,int bit_index)
+{
+    return value & (1<<bit_index);
+}
+
+/**Restituisce la sequenza di bit della memoria value
+bsize=dimensione del buffer da esplorare (in bytes)
+*/
+
+char* get_bits(void* value,int bsize)
+{
+    if (value==(void*)0) return (char*)0;
+
+    unsigned char* buff=(unsigned char*)value;
+    static char res[1024];
+    unsigned char by;
+    int pos=0;
+    int mask;
+
+    memset(res,0,1024);
+
+    for (int i=bsize-1;(i>=0 && i<1024);--i)
+    {
+        by=buff[i];
+
+        mask=0x80;
+
+        for (int j=0;j<8;++j)
+        {
+            if (by & mask) res[pos++]='1';
+            else res[pos++]='0';
+            mask>>=1;
+        }
+    }
+
+    return res;
+}
+
+int main() {
+
+
+    cout<<"odd or even..."<<endl<<endl;
+
+
+    //pari o dispari
+    for (int i=0;i<10;i++) {
+
+        cout<<i<<(is_odd(i) ? " is odd" : " is even")<<endl;
+
+    }
+
+    cout<<endl<<"bit masks..."<<endl<<endl;
+
+    //maschera di n bits
+    for (int nbits=0;nbits<32;nbits++)
+    {
+        int mask=get_mask(nbits);
+        cout<<"mask with "<<nbits<<" bits:"<<get_bits(&mask,sizeof(int))<<endl;
+
+    }
+
+    cout<<endl<<"set bit..."<<endl<<endl;
+
+    //setta i bit
+    for (int i=0;i<10;i++)
+    {
+        int value=0;
+        set_bit(value,i);
+        cout<<"set bit "<<i<<" : "<<value<<endl;
+    }
+    
+    //resetta i bit
+    for (int i=0;i<10;i++)
+    {
+        int mask=get_mask(10);
+        reset_bit(i);
+        cout<<"reset bit "<<i<<" : "<<get_bits
+        
+    }
+
+    return 0;
+}

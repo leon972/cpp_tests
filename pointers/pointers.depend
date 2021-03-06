@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1192736406 source:c:\projects\cpp\pointers\pointers.cpp
+	<iostream>
+	<vector>
+

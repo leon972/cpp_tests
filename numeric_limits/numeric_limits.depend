@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1192569705 source:c:\projects\cpp\numeric_limits\numeric_limits.cpp
+	<iostream>
+	<limits>
+

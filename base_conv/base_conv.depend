@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1187817050 source:c:\projects\cpp\base_conv\main.cpp
+	<iostream>
+	<ctype.h>
+	<string.h>
+	<math.h>
+

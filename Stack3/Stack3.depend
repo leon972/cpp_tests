@@ -1,0 +1,10 @@
+# depslib dependency file v1.0
+1191158950 source:c:\projects\cpp\stack3\stack3.cpp
+	"stack3.h"
+
+1191158960 c:\projects\cpp\stack3\stack3.h
+
+1191158950 source:c:\projects\cpp\stack3\main.cpp
+	<iostream>
+	"stack3.h"
+
